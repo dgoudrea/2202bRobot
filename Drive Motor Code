@@ -1,4 +1,7 @@
 #include <Servo.h>
+#include <I2CEncoder.h>
+#include <uSTimer2.h>
+#include <CharliePlexM.h>
 
 //Motors
 Servo servo_RightMotor;
