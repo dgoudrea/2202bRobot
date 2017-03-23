@@ -1,3 +1,6 @@
+//#include <IRremote.h>
+//#include <IRremoteInt.h>
+//#include <IRremoteTools.h>
 #include <Servo.h>
 #include <I2CEncoder.h>
 #include <uSTimer2.h>
@@ -7,6 +10,11 @@
 const int ci_Ultrasonic_Ping = 2;   //input plug
 const int ci_Ultrasonic_Data = 3;   //output plug
 unsigned long ul_Echo_Time;
+
+//IR Sensor
+//int IR_Pin = 7;
+//IRrecv irrecv(IR_Pin);
+//decode_results results;
 
 //Motors
 Servo servo_RightMotor;
@@ -27,6 +35,9 @@ Serial.begin(9600);
 pinMode(ci_Ultrasonic_Ping, OUTPUT);
 pinMode(ci_Ultrasonic_Data, INPUT);
 
+//IR Sensor Set-uo
+//irrecv.enableIRIn(); //Startsthe receiver module
+
 //Drive Motor Setup
 pinMode(ci_Right_Motor, OUTPUT);
 servo_RightMotor.attach(ci_Right_Motor);
@@ -34,12 +45,11 @@ pinMode(ci_Left_Motor, OUTPUT);
 servo_LeftMotor.attach(ci_Left_Motor);
 
 //Drive Encoder Setup
-/*
-encoder_RightMotor.init(1.0/3.0*MOTOR_393_SPEED_ROTATIONS, MOTOR_393_TIME_DELTA);
+
+/*encoder_RightMotor.init(1.0/3.0*MOTOR_393_SPEED_ROTATIONS, MOTOR_393_TIME_DELTA);
 encodre_RightMotor.setReversed(true); //adjust for positive count while moving forward
 encoder_LeftMotor.init(1.0/3.0*MOTOR_393_SPEED_ROTATIONS, MOTOR_393_TIME_DELTA);
-encodre_LeftMotor.setReversed(false); //adjust for positive count while moving forward
-*/
+encodre_LeftMotor.setReversed(false); //adjust for positive count while moving forward*/
 }
 
 void loop() {
@@ -52,18 +62,16 @@ void loop() {
 
 Ping();
 
-if(ul_Echo_Time> 300){
-servo_RightMotor.writeMicroseconds(1600); //Test these speeds
-servo_LeftMotor.writeMicroseconds(1600);
-}else{
-servo_RightMotor.writeMicroseconds(ci_Right_Motor_Stop); //Test these speeds
-servo_LeftMotor.writeMicroseconds(ci_Left_Motor_Stop);
+if((ul_Echo_Time/58) > 3){
+  servo_RightMotor.writeMicroseconds(1800); //Test these speeds
+  servo_LeftMotor.writeMicroseconds(1800);
+}
+else{
+  servo_RightMotor.writeMicroseconds(1500); 
+  servo_LeftMotor.writeMicroseconds(1500);
+}
 }
 
- 
-
-
-}
 
 void Ping()
 {
