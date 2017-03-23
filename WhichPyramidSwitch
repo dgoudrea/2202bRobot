@@ -12,10 +12,11 @@ if(digitalRead(DPDTswitch) == HIGH){
   int PyramidVal1 = 65; //a
   int PyramidVal2 = 69; //e
 }else{
-   Serial.println("HIGH");
-  int PyramidVal1 = 73; //a
-  int PyramidVal2 = 79; //e
+   Serial.println("LOW");
+  int PyramidVal1 = 73; //i
+  int PyramidVal2 = 79; //o
 }
 }
+
 
 
