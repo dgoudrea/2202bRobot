@@ -1,0 +1,21 @@
+int DPDTswitch  = 7;
+
+void setup() {
+pinMode(DPDTswitch, INPUT);
+Serial.begin(2400);
+}
+
+void loop() {
+  
+if(digitalRead(DPDTswitch) == HIGH){
+  Serial.println("HIGH");
+  int PyramidVal1 = 65; //a
+  int PyramidVal2 = 69; //e
+}else{
+   Serial.println("HIGH");
+  int PyramidVal1 = 73; //a
+  int PyramidVal2 = 79; //e
+}
+}
+
+
