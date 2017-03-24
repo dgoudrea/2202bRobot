@@ -25,7 +25,8 @@ I2CEncoder encoder_RightMotor;
 I2CEncoder encoder_LeftMotor;
 const int ci_Left_Motor_Stop = 1500;        // 200 for brake mode; 1500 for stop
 const int ci_Right_Motor_Stop = 1500;
-
+Servo Arm_servo;    //"Door" servo
+int Arm_Motor = 7;
 void setup() {
 
 //Wire.begin();
@@ -43,6 +44,8 @@ pinMode(ci_Right_Motor, OUTPUT);
 servo_RightMotor.attach(ci_Right_Motor);
 pinMode(ci_Left_Motor, OUTPUT);
 servo_LeftMotor.attach(ci_Left_Motor);
+pinMode(Arm_Motor, OUTPUT);
+Arm_servo.attach(Arm_Motor);
 
 //Drive Encoder Setup
 
@@ -55,14 +58,19 @@ encodre_LeftMotor.setReversed(false); //adjust for positive count while moving f
 void loop() {
 
 //For arm motors:
-//6000 = closed, 800 = open, 1600 90deg
+//Use  1900 and 800
 
 //servo_RightMotor.writeMicroseconds(6000); //Test these speeds
 //servo_LeftMotor.writeMicroseconds(6000);
+Arm_servo.writeMicroseconds(1900);
+delay(2000);
+Arm_servo.writeMicroseconds(800);
+delay(20000);
 
-Ping();
 
-if((ul_Echo_Time/58) > 3){
+Serial.println(ul_Echo_Time/58);
+
+/*if((ul_Echo_Time/58) > 3){
   servo_RightMotor.writeMicroseconds(1800); //Test these speeds
   servo_LeftMotor.writeMicroseconds(1800);
 }
@@ -70,8 +78,8 @@ else{
   servo_RightMotor.writeMicroseconds(1500); 
   servo_LeftMotor.writeMicroseconds(1500);
 }
+*/
 }
-
 
 void Ping()
 {
