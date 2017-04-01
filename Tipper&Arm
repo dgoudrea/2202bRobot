@@ -1,0 +1,35 @@
+#include <Servo.h>
+Servo Motor1;
+int motor1 = 7;
+Servo Motor2;
+int motor2 = 6;
+Servo Motor3;
+int motor3 = 5;
+
+void setup() {
+
+pinMode(motor1, OUTPUT);
+Motor1.attach(motor1);
+
+pinMode(motor2, OUTPUT);
+Motor2.attach(motor2);
+
+pinMode(motor3, OUTPUT);
+Motor3.attach(motor3);
+}
+
+void loop() {
+
+
+Motor1.writeMicroseconds(900);
+Motor2.writeMicroseconds(2100);
+Motor3.writeMicroseconds(1900);
+delay(5000);
+Motor3.writeMicroseconds(0);
+delay(5000);
+Motor1.writeMicroseconds(2100);
+Motor2.writeMicroseconds(900);
+delay(5000);
+
+
+}
