@@ -1,10 +1,11 @@
 #include <Servo.h>
+
 Servo Motor1;
 int motor1 = 7;
 Servo Motor2;
-int motor2 = 6;
+int motor2 = 4;
 Servo Motor3;
-int motor3 = 5;
+int motor3 = 2;
 
 void setup() {
 
@@ -21,15 +22,13 @@ Motor3.attach(motor3);
 void loop() {
 
 
-Motor1.writeMicroseconds(900);
-Motor2.writeMicroseconds(2100);
-Motor3.writeMicroseconds(1900);
-delay(5000);
-Motor3.writeMicroseconds(0);
-delay(5000);
-Motor1.writeMicroseconds(2100);
-Motor2.writeMicroseconds(900);
-delay(5000);
-
-
+Motor1.write(0);
+Motor2.write(180);
+Motor3.write(0);
+delay(2000);
+Motor3.write(150);
+delay(2000);
+Motor1.write(180);
+Motor2.write(0);
+delay(3000);
 }
