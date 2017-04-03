@@ -2,6 +2,7 @@
 #include <IRremoteInt.h>
 #include <IRremoteTools.h>
 
+int A = 65, E = 69; I = 73; O = 79;
 
 int IR_Pin = 3;
 IRrecv irrecv(IR_Pin);
