@@ -55,27 +55,19 @@ Arm_servo.attach(Arm_Motor);
 
 //Drive Encoder Setup
 
-/*encoder_RightMotor.init(1.0/3.0*MOTOR_393_SPEED_ROTATIONS, MOTOR_393_TIME_DELTA);
+encoder_RightMotor.init(1.0/3.0*MOTOR_393_SPEED_ROTATIONS, MOTOR_393_TIME_DELTA);
 encodre_RightMotor.setReversed(true); //adjust for positive count while moving forward
 encoder_LeftMotor.init(1.0/3.0*MOTOR_393_SPEED_ROTATIONS, MOTOR_393_TIME_DELTA);
-encodre_LeftMotor.setReversed(false); //adjust for positive count while moving forward*/
-}
+encodre_LeftMotor.setReversed(false); //adjust for positive count while moving forward
 
-//Stage
-int stage = 0;
+
+int stage = 0; //stage of code
+
+}
 
 void loop() {
 
-//For arm motors:
-//6000 = closed, 1900 = open, 1600 90deg
-
-//servo_RightMotor.writeMicroseconds(6000); //Test these speeds
-//servo_LeftMotor.writeMicroseconds(6000);
-//Arm_servo.writeMicroseconds(1900);
-//delay(2000);
-//Arm_servo.writeMicroseconds(800);
-//delay(20000);
-
+Serial.println(ul_Echo_Time/58);
 Ping();
 
 if(stage == 0){
@@ -93,16 +85,6 @@ else if(stage ==3){
 else if(stage == 4){
   dropCube();
   reverse();
-}
-Serial.println(ul_Echo_Time/58);
-
-if((ul_Echo_Time/58) > 3){
-  servo_RightMotor.writeMicroseconds(1900); //Test these speeds
-  servo_LeftMotor.writeMicroseconds(1800);
-}
-else{
-  servo_RightMotor.writeMicroseconds(1500); 
-  servo_LeftMotor.writeMicroseconds(1500);
 }
 
 }
@@ -133,12 +115,15 @@ while((ul_Echo_Time/58) > 3){ //drive straight along the wall
   servo_LeftMotor.writeMicroseconds(driveSlow);
 }
 while(((ul_Echo_Time/58) < 3){
- servo_RightMotor.writeMicroseconds(Stop); //Test these speeds
+ servo_RightMotor.writeMicroseconds(Stop); 
  servo_LeftMotor.writeMicroseconds(Stop);
  //add code to spin the cubeArm
 }
 
 getOffWall(){
-
-  
+double timer = millis();
+if(timer<5000){
+ servo_RightMotor.writeMicroseconds(driveSlow); 
+ servo_LeftMotor.writeMicroseconds(driveSlow);
+}
 }
