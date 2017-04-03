@@ -6,6 +6,8 @@
 #include <uSTimer2.h>
 #include <CharliePlexM.h>
 
+int stage;
+
 //Ultrasonic Sensor
 const int ci_Ultrasonic_Ping = 2;   //input plug
 const int ci_Ultrasonic_Data = 3;   //output plug
@@ -28,6 +30,10 @@ const int ci_Right_Motor_Stop = 1500;
 Servo Arm_servo;    //"Door" servo
 int Arm_Motor = 7;
 void setup() {
+int Stop = 1500;
+int driveslow = 1800;
+int drivefast = 1900;
+}
 
 //Wire.begin();
 Serial.begin(9600);
@@ -55,30 +61,50 @@ encoder_LeftMotor.init(1.0/3.0*MOTOR_393_SPEED_ROTATIONS, MOTOR_393_TIME_DELTA);
 encodre_LeftMotor.setReversed(false); //adjust for positive count while moving forward*/
 }
 
+//Stage
+int stage = 0;
+
 void loop() {
 
 //For arm motors:
-//Use  1900 and 800
+//6000 = closed, 1900 = open, 1600 90deg
 
 //servo_RightMotor.writeMicroseconds(6000); //Test these speeds
 //servo_LeftMotor.writeMicroseconds(6000);
-Arm_servo.writeMicroseconds(1900);
-delay(2000);
-Arm_servo.writeMicroseconds(800);
-delay(20000);
+//Arm_servo.writeMicroseconds(1900);
+//delay(2000);
+//Arm_servo.writeMicroseconds(800);
+//delay(20000);
 
+Ping();
 
+if(stage == 0){
+  collectCube();
+}
+else if(stage == 1){
+  getOffWall();
+}
+else if(stage == 2){
+  locatePyramid();
+}
+else if(stage ==3){
+  liftPyramid();
+}
+else if(stage == 4){
+  dropCube();
+  reverse();
+}
 Serial.println(ul_Echo_Time/58);
 
-/*if((ul_Echo_Time/58) > 3){
-  servo_RightMotor.writeMicroseconds(1800); //Test these speeds
+if((ul_Echo_Time/58) > 3){
+  servo_RightMotor.writeMicroseconds(1900); //Test these speeds
   servo_LeftMotor.writeMicroseconds(1800);
 }
 else{
   servo_RightMotor.writeMicroseconds(1500); 
   servo_LeftMotor.writeMicroseconds(1500);
 }
-*/
+
 }
 
 void Ping()
@@ -98,4 +124,21 @@ void Ping()
   Serial.print(ul_Echo_Time/148); //divide time by 148 to get distance in inches
   Serial.print(", cm: ");
   Serial.println(ul_Echo_Time/58); //divide time by 58 to get distance in cm 
+}
+
+void collectCube(){
+//add they're code to spin the cubeArm then set it's proper position
+while((ul_Echo_Time/58) > 3){ //drive straight along the wall
+  servo_RightMotor.writeMicroseconds(driveFast); //Test these speeds
+  servo_LeftMotor.writeMicroseconds(driveSlow);
+}
+while(((ul_Echo_Time/58) < 3){
+ servo_RightMotor.writeMicroseconds(Stop); //Test these speeds
+ servo_LeftMotor.writeMicroseconds(Stop);
+ //add code to spin the cubeArm
+}
+
+getOffWall(){
+
+  
 }
